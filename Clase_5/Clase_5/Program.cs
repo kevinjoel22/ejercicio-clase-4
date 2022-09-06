@@ -86,13 +86,13 @@ public class Producto
         return precio;
     }
 
-    public string MostrarProducto(Producto p)
+    public static string MostrarProducto(Producto p)
     {
         StringBuilder sb = new StringBuilder();
 
-        sb.AppendLine($"marca:{marca}");
-        sb.AppendLine($"codigo de barra:{codigoDeBarra}");
-        sb.AppendLine($"precio:{precio}");
+        sb.AppendLine($"marca:{p.marca}");
+        sb.AppendLine($"codigo de barra:{p.codigoDeBarra}");
+        sb.AppendLine($"precio:{p.precio}");
 
         return sb.ToString();
     }
@@ -133,7 +133,7 @@ public class Producto
 
     }
 
-   /* explicit operator string(Producto p)
+    /*static explicit operator string(Producto p)
     {
         p.codigoDeBarra
         return
@@ -146,11 +146,11 @@ public class Producto
 public class Estante
 {
     private int ubicacionEstante;
-    private Producto[] productos = new Producto[100];
+    private Producto[] productos;
     
     private Estante(int capacidad)
     {
-        productos = capacidad;
+        productos = new Producto[capacidad];
     }
 
     public Estante(int capacidad, int ubicacion) : this(capacidad)
@@ -158,14 +158,24 @@ public class Estante
         this.ubicacionEstante = ubicacion;
     }
 
-    public Producto GetProductos()
+    public Producto[] GetProductos
     {
-        return productos[];
+        get
+        {
+            return productos;
+        }
     }
 
-    public string MostrarEstante(Estante e)
+    public static string MostrarEstante(Estante e)
     {
+        StringBuilder sb = new StringBuilder();
 
+        foreach (Producto p in e.productos)
+        {
+            sb.AppendLine(Producto.MostrarProducto(p));
+        }
+
+        return sb.ToString();
     }
 
     public static bool operator !=(Estante e, Producto p)
